@@ -2,7 +2,7 @@ const AboutUsSection = () => {
   return (
     <div
       id="about-us"
-      className="min-h-[50vh] p-8 xl:p-20 bg-[url(/assets/images/about_us_bg.png)] bg-cover bg-center"
+      className="min-h-[50vh] px-8 py-16 xl:p-20 bg-[url(/assets/images/about_us_bg.png)] bg-cover bg-center"
     >
       <div className="px-8 xl:px-60 mb-10 xl:mb-20 text-center">
         <h1 className="text-4xl xl:text-5xl font-semibold uppercase">

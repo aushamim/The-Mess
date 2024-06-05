@@ -1,4 +1,5 @@
 import AboutUsSection from "./AboutUsSection";
+import ContactSection from "./ContactSection";
 import FeaturesSection from "./FeaturesSection";
 import HeroSection from "./HeroSection";
 import Pricing from "./Pricing";
@@ -10,7 +11,7 @@ const Home = () => {
       <FeaturesSection />
       <AboutUsSection />
       <Pricing />
-      <div id="contact-us" className="min-h-screen bg-yellow-200"></div>
+      <ContactSection />
     </>
   );
 };
