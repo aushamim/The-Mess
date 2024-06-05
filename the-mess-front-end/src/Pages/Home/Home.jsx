@@ -1,14 +1,17 @@
+import AboutUsSection from "./AboutUsSection";
+import FeaturesSection from "./FeaturesSection";
+import HeroSection from "./HeroSection";
+import Pricing from "./Pricing";
+
 const Home = () => {
   return (
-    <div className="">
-      <div className="h-screen bg-[url(./assets/images/hero_bg.png)]">
-        jhbasjhcbajkshcb
-      </div>
-      <div id="features" className="h-screen bg-green-200"></div>
-      <div id="about-us" className="h-screen bg-blue-200"></div>
-      <div id="pricing" className="h-screen bg-yellow-200"></div>
-      <div id="contact-us" className="h-screen bg-yellow-200"></div>
-    </div>
+    <>
+      <HeroSection />
+      <FeaturesSection />
+      <AboutUsSection />
+      <Pricing />
+      <div id="contact-us" className="min-h-screen bg-yellow-200"></div>
+    </>
   );
 };
 

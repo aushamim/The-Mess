@@ -5,8 +5,8 @@ import { HashLink } from "react-router-hash-link";
 const MainNavbar = ({ scrolled }) => {
   return (
     <div
-      className={`px-5 xl:px-60 flex items-center fixed top-0 left-0 right-0 bg-white backdrop-blur duration-300 z-50 ${
-        scrolled ? "h-14 bg-opacity-50" : "h-20 bg-opacity-100"
+      className={`px-8 xl:px-60 flex items-center fixed top-0 left-0 right-0 bg-white backdrop-blur duration-300 z-50 shadow-sm ${
+        scrolled ? "h-14 bg-opacity-80" : "h-20 bg-opacity-100"
       }`}
     >
       <div className="flex-grow">
@@ -24,14 +24,18 @@ const MainNavbar = ({ scrolled }) => {
           Home
         </HashLink>
         <HashLink
-          smooth
+          scroll={(el) =>
+            el.scrollIntoView({ behavior: "smooth", block: "center" })
+          }
           to="/#features"
           className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
         >
           Features
         </HashLink>
         <HashLink
-          smooth
+          scroll={(el) =>
+            el.scrollIntoView({ behavior: "smooth", block: "center" })
+          }
           to="/#about-us"
           className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
         >
@@ -92,7 +96,7 @@ const MainNavbar = ({ scrolled }) => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200 bg-opacity-90 backdrop-blur text-base-content">
+          <ul className="menu p-4 w-80 min-h-full bg-white bg-opacity-90 backdrop-blur text-base-content">
             {/* Sidebar content here */}
             <li>
               <HashLink
@@ -114,7 +118,9 @@ const MainNavbar = ({ scrolled }) => {
             </li>
             <li>
               <HashLink
-                smooth
+                scroll={(el) =>
+                  el.scrollIntoView({ behavior: "smooth", block: "center" })
+                }
                 to="/#about-us"
                 className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
               >
