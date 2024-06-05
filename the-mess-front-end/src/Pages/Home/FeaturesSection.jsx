@@ -16,30 +16,69 @@ const FeaturesSection = () => {
           <span className="h-1.5 w-36 mt-1 mx-auto bg-purple-500 block rounded"></span>
         </div>
         <div className="px-8 xl:px-60 grid grid-cols-1 xl:grid-cols-4 gap-10 items-center">
-          <div className="p-5 rounded-md bg-white border border-purple-100 shadow-2xl shadow-purple-200 hover:scale-110 duration-300">
-            <p className="text-3xl font-semibold mb-3">Find Vacancy</p>
-            <p>Here you can find a room to rent or a seat to share.</p>
+          <div className="p-5 rounded-md bg-white border border-purple-100 shadow-2xl shadow-purple-200 hover:scale-110 duration-300 relative">
+            <div className="absolute bottom-1 right-1">
+              <img
+                className="w-16 opacity-5"
+                src="/assets/images/house.png"
+                alt="house icon"
+              />
+            </div>
+            <div>
+              <p className="text-3xl font-semibold mb-3">Find Vacancy</p>
+              <p>Here you can find a room to rent or a seat to share.</p>
+            </div>
           </div>
-          <div className="p-5 rounded-md bg-white border border-purple-100 shadow-2xl shadow-purple-200 hover:scale-110 duration-300">
+
+          <div className="p-5 rounded-md bg-white border border-purple-100 shadow-2xl shadow-purple-200 hover:scale-110 duration-300 relative">
+            <div className="absolute bottom-1 right-1">
+              <img
+                className="w-16 opacity-5"
+                src="/assets/images/real-estate.png"
+                alt="house icon"
+              />
+            </div>
             <p className="text-3xl font-semibold mb-3">Post Vacancy</p>
-            <p>
-              Here you can rent out a room to or a single seat or multiple
-              seats.
-            </p>
+            <div>
+              <p>
+                Here you can rent out a room to or a single seat or multiple
+                seats.
+              </p>
+            </div>
           </div>
-          <div className="p-5 rounded-md bg-white border border-purple-100 shadow-2xl shadow-purple-200 hover:scale-110 duration-300">
-            <p className="text-3xl font-semibold mb-3">Track Expanses</p>
-            <p>
-              Here you can track various expanses like meals, current bills,
-              etc.
-            </p>
+
+          <div className="p-5 rounded-md bg-white border border-purple-100 shadow-2xl shadow-purple-200 hover:scale-110 duration-300 relative">
+            <div className="absolute bottom-1 right-1">
+              <img
+                className="w-16 opacity-5"
+                src="/assets/images/money.png"
+                alt="house icon"
+              />
+            </div>
+            <div>
+              <p className="text-3xl font-semibold mb-3">Track Expanses</p>
+              <p>
+                Here you can track various expanses like meals, current bills,
+                etc.
+              </p>
+            </div>
           </div>
-          <div className="p-5 rounded-md bg-white border border-purple-100 shadow-2xl shadow-purple-200 hover:scale-110 duration-300">
-            <p className="text-3xl font-semibold mb-3">Cloud Save</p>
-            <p>
-              All of your data will be saved and accessible from anywhere by
-              you.
-            </p>
+
+          <div className="p-5 rounded-md bg-white border border-purple-100 shadow-2xl shadow-purple-200 hover:scale-110 duration-300 relative">
+            <div className="absolute bottom-1 right-1">
+              <img
+                className="w-16 opacity-5"
+                src="/assets/images/cloud.png"
+                alt="house icon"
+              />
+            </div>
+            <div>
+              <p className="text-3xl font-semibold mb-3">Cloud Save</p>
+              <p>
+                All of your data will be saved and accessible from anywhere by
+                you.
+              </p>
+            </div>
           </div>
         </div>
       </div>
