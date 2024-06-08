@@ -15,12 +15,12 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "pet-adoption-platform.onrender.com"]
-CSRF_TRUSTED_ORIGINS = ["https://pet-adoption-platform.onrender.com"]
-CORS_ORIGIN_WHITELIST = (
-    "http://localhost:5173",
-    "https://clinquant-churros.netlify.app",
-)
+# ALLOWED_HOSTS = ["127.0.0.1", "pet-adoption-platform.onrender.com"]
+# CSRF_TRUSTED_ORIGINS = ["https://pet-adoption-platform.onrender.com"]
+# CORS_ORIGIN_WHITELIST = (
+#     "http://localhost:5173",
+#     "https://clinquant-churros.netlify.app",
+# )
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "UserManagement",
 ]
 
-AUTH_USER_MODEL = "User_Management.User"
+AUTH_USER_MODEL = "UserManagement.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -80,14 +80,20 @@ WSGI_APPLICATION = "TheMess.wsgi.application"
 #         default=env("RENDER_DB_URL"),
 #     )
 # }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": env("NAME"),
+#         "USER": env("USER"),
+#         "PASSWORD": env("PASSWORD"),
+#         "HOST": env("HOST"),
+#         "PORT": env("PORT"),
+#     }
+# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("NAME"),
-        "USER": env("USER"),
-        "PASSWORD": env("PASSWORD"),
-        "HOST": env("HOST"),
-        "PORT": env("PORT"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
