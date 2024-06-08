@@ -15,12 +15,12 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ["127.0.0.1", "pet-adoption-platform.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "pet-adoption-platform.onrender.com"]
 # CSRF_TRUSTED_ORIGINS = ["https://pet-adoption-platform.onrender.com"]
-# CORS_ORIGIN_WHITELIST = (
-#     "http://localhost:5173",
-#     "https://clinquant-churros.netlify.app",
-# )
+CORS_ORIGIN_WHITELIST = (
+    "http://localhost:5173",
+    "https://clinquant-churros.netlify.app",
+)
 
 
 # Application definition
@@ -98,9 +98,12 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
-    ]
+    ],
 }
 
 

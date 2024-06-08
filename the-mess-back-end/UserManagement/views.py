@@ -50,3 +50,12 @@ class UserLoginViewset(viewsets.ModelViewSet):
             return Response({"token": token.key, "user_id": user.id})
         else:
             return Response({"error": "Invalid Username or Password"})
+
+
+class UserLogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        request.user.auth_token.delete()
+        logout(request)
+        return Response({"success": "Logged Out"})

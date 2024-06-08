@@ -69,12 +69,6 @@ class RegistrationSerilizer(serializers.ModelSerializer):
         return account
 
 
-# class LoginSerilizer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ["username", "password"]
-
-
 class LoginSerilizer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)

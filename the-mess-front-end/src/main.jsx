@@ -6,7 +6,8 @@ import GlobalStateProvider from "./Hooks/GlobalStateProvider";
 import MainLayout from "./Components/Layout/MainLayout";
 import FourOFour from "./Components/FourOFour/FourOFour";
 import Home from "./Pages/Home/Home";
-import Login from "./Pages/Login/Login";
+import Login from "./Pages/User/Login";
+import Register from "./Pages/User/Register";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +26,16 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path: "/register",
+        element: <Register />,
+      },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <div>Dashboard</div>,
+    children: [],
   },
 ]);
 

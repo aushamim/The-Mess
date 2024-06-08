@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import useGlobalState from "../../Hooks/useGlobalState";
 
 const MainNavbar = ({ scrolled }) => {
+  const { user, logout } = useGlobalState();
+  const navigate = useNavigate();
+
   return (
     <div
       className={`px-8 xl:px-60 flex items-center fixed top-0 left-0 right-0 bg-white backdrop-blur duration-300 z-50 shadow-sm ${
@@ -61,12 +65,31 @@ const MainNavbar = ({ scrolled }) => {
         >
           To-Let
         </Link>
-        <Link
-          to="/login"
-          className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
-        >
-          Login
-        </Link>
+        {user ? (
+          <>
+            <Link
+              to="/login"
+              className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+            >
+              Dashboard
+            </Link>
+            <button
+              className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+              onClick={() => {
+                logout(navigate);
+              }}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link
+            to="/login"
+            className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+          >
+            Login
+          </Link>
+        )}
       </div>
 
       <div className="drawer drawer-end w-fit block xl:hidden relative">
@@ -153,14 +176,37 @@ const MainNavbar = ({ scrolled }) => {
                 To-Let
               </Link>
             </li>
-            <li>
-              <Link
-                to="/login"
-                className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
-              >
-                Login
-              </Link>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <Link
+                    to="/dashboard"
+                    className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+                    onClick={() => {
+                      logout(navigate);
+                    }}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link
+                  to="/login"
+                  className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+                >
+                  Login
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

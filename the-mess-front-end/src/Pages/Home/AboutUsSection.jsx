@@ -13,7 +13,7 @@ const AboutUsSection = () => {
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
         <div>
           <dotlottie-player
-            src="https://lottie.host/bc5a6246-3b5a-448d-8a52-9cbc30536d12/7z4eifYDau.json"
+            src="https://lottie.host/7745509b-5d65-4b74-bb76-87b025149dea/wG0QzmSTyc.json"
             style={{ width: "100%" }}
             background="transparent"
             speed="0.7"
