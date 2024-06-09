@@ -15,6 +15,7 @@ ALLOWED_HOSTS = ["127.0.0.1", "the-mess.onrender.com"]
 CSRF_TRUSTED_ORIGINS = ["https://the-mess.onrender.com"]
 CORS_ORIGIN_WHITELIST = (
     "http://localhost:5173",
+    "http://localhost:5174",
     "https://the-mess.netlify.app",
 )
 

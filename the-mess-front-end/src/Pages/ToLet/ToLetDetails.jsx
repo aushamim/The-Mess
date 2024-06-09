@@ -138,7 +138,7 @@ const ToLetDetails = () => {
               className="mySwiper"
             >
               {post?.images?.urls.map((img) => (
-                <SwiperSlide key={post?.images?.urls.indexOf(img)}>
+                <SwiperSlide key={Math.random()}>
                   <img
                     src={img}
                     className="h-12 xl:h-24 w-full object-cover rounded-md"
@@ -158,11 +158,12 @@ const ToLetDetails = () => {
             spaceBetween={10}
             navigation={true}
             thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+            threshold={5}
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2"
           >
             {post?.images?.urls.map((img) => (
-              <SwiperSlide key={post?.images?.urls.indexOf(img)}>
+              <SwiperSlide key={Math.random()}>
                 <img
                   src={img}
                   className="h-72 xl:h-[32.5rem] w-full object-cover rounded-md"

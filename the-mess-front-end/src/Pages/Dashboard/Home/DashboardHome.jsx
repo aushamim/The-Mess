@@ -11,7 +11,7 @@ const DashboardHome = () => {
   useEffect(() => {
     if (!user) {
       toast.warning("Please login to continue.");
-      navigate("/login");
+      navigate("/");
     }
   }, [user, navigate]);
   return (
