@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import useGlobalState from "../../Hooks/useGlobalState";
 
 const ToLetDetails = () => {
-  const { APIHost, userId, token, loadPosts } = useGlobalState();
+  const { APIHost, userId, token, loadPosts, admin } = useGlobalState();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [post, setPost] = useState({});
   const navigate = useNavigate();
@@ -57,13 +57,13 @@ const ToLetDetails = () => {
             {post?.user?.username}
           </span>
         </h1>
-        {post?.user?.id == userId ? (
+        {admin || post?.user?.id == userId ? (
           <div className="flex-grow flex items-center justify-end gap-5">
             <Link
               to={`/dashboard/edit-post/${post?.id}`}
               className="btn-purple"
             >
-              Edit
+              {admin ? "Edit (Admin)" : "Edit"}
             </Link>
             <button
               className="btn-red"
@@ -71,7 +71,7 @@ const ToLetDetails = () => {
                 document.getElementById("confirm-post-delete").showModal()
               }
             >
-              Delete
+              {admin ? "Delete (Admin)" : "Delete"}
             </button>
           </div>
         ) : (

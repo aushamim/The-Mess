@@ -13,7 +13,7 @@ const GlobalStateProvider = ({ children }) => {
   );
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
-
+  const [admin, setAdmin] = useState(false);
   const [posts, setPosts] = useState([]);
   const [userPosts, setUserPosts] = useState([]);
   const [postsLoading, setPostsLoading] = useState(true);
@@ -41,6 +41,7 @@ const GlobalStateProvider = ({ children }) => {
         .then((data) => {
           if (data?.username) {
             setUser(data);
+            setAdmin(data?.role == "admin");
           }
         });
     }
@@ -94,6 +95,7 @@ const GlobalStateProvider = ({ children }) => {
         logout,
         userId,
         setUserId,
+        admin,
         user,
         posts,
         userPosts,

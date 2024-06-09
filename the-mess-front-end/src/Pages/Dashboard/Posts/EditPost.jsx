@@ -4,9 +4,9 @@ import { toast } from "sonner";
 import useGlobalState from "../../../Hooks/useGlobalState";
 
 const EditPost = () => {
-  const { APIHost, token, userId, user, loadPosts } = useGlobalState();
+  const { APIHost, token, userId, user, loadPosts, admin } = useGlobalState();
   const navigate = useNavigate();
-
+  const [postUser, setPostUser] = useState(null);
   const [limitCheck, setLimitCheck] = useState(false);
   const [post, setPost] = useState({});
   const [urls, setUrls] = useState([]);
@@ -21,15 +21,25 @@ const EditPost = () => {
         setUrls(data?.images?.urls);
         if (user) {
           setLimitCheck(user?.max_edits > data?.edits ? false : true);
-          setRemainingEdits(user?.max_edits - data?.edits - 1);
+          setRemainingEdits(
+            admin ? user?.max_edits : user?.max_edits - data?.edits - 1
+          );
         }
       });
-  }, [APIHost, id, user]);
+  }, [APIHost, admin, id, user]);
+
+  useEffect(() => {
+    if (admin) {
+      fetch(`${APIHost}/posts/edit/${id}/`)
+        .then((res) => res.json())
+        .then((data) => setPostUser(data?.user));
+    }
+  }, [APIHost, admin, id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = parseInt(userId);
+    const user = admin ? parseInt(postUser) : parseInt(userId);
     const type = e.target.elements["type"].value;
     const count = e.target.elements["count"].value;
     const location = e.target.elements["location"].value;
@@ -67,7 +77,7 @@ const EditPost = () => {
           rent,
           contact,
           images,
-          edits: post?.edits + 1,
+          edits: admin ? post?.edits : post?.edits + 1,
         }),
       })
         .then((res) => res.json())
