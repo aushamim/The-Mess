@@ -56,8 +56,8 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div className="grid grid-cols-2 gap-10 items-center">
-      <div className="pl-60">
+    <div className="pt-10 xl:pt-0 grid grid-cols-1 xl:grid-cols-2 gap-10 items-center">
+      <div className="px-8 xl:pl-60">
         <div className="mb-8 -ml-0.5">
           <h1 className="text-7xl font-semibold">Hi</h1>
           <p className="text-3xl ml-0.5">
@@ -65,7 +65,7 @@ const Login = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="mb-32">
+        <form onSubmit={handleSubmit} className="xl:mb-32">
           <label className="form-control w-full mb-2">
             <div className="label">
               <span className="label-text">Username</span>

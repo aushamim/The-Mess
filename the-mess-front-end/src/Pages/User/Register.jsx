@@ -68,8 +68,8 @@ const Register = () => {
   }, [user, navigate]);
 
   return (
-    <div className="grid grid-cols-2 gap-10 items-center my-40">
-      <div className="pl-60">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 items-center my-40">
+      <div className="px-8 xl:pl-60">
         <div className="mb-8 -ml-0.5">
           <h1 className="text-7xl font-semibold">Hi</h1>
           <p className="text-3xl ml-0.5">
@@ -82,7 +82,7 @@ const Register = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="mb-32 grid grid-cols-2 gap-x-5 gap-y-2"
+          className="xl:mb-32 grid grid-cols-1 xl:grid-cols-2 gap-x-5 gap-y-2"
         >
           <label className="form-control w-full">
             <div className="label">
@@ -181,7 +181,7 @@ const Register = () => {
             />
           </label>
 
-          <div className="mt-10 flex items-center justify-end gap-5 col-span-2">
+          <div className="mt-10 flex items-center justify-end gap-5 xl:col-span-2">
             <p className="mb-1 flex-gro">
               Already have an account?{" "}
               <Link to="/login" className="text-purple-600">
@@ -193,7 +193,7 @@ const Register = () => {
         </form>
       </div>
 
-      <div className="pr-20">
+      <div className="xl:pr-20">
         <dotlottie-player
           src="https://lottie.host/0b54fa8b-7d01-4ffb-955d-36128dacc15c/6A8Z2J3wRm.json"
           style={{ width: "100%" }}

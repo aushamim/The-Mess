@@ -170,7 +170,7 @@ const MainNavbar = ({ scrolled }) => {
             </li>
             <li>
               <Link
-                to="/"
+                to="/to-let"
                 className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
               >
                 To-Let
