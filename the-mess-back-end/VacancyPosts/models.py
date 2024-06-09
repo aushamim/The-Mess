@@ -16,6 +16,7 @@ class Post(models.Model):
     contact = models.CharField(max_length=100)
     images = models.JSONField()
     timestamp = models.DateTimeField(auto_now_add=True)
+    edits = models.IntegerField(default=0)
 
     def __str__(self) -> str:
         return f"Vacancy post by {self.user.username}"

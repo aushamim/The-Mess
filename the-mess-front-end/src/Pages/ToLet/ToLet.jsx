@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import useGlobalState from "../../Hooks/useGlobalState";
 import ToLetCard from "../../Components/Cards/ToLetCard";
+import Loader from "../../Components/Loader/Loader";
 
 const ToLet = () => {
-  const { user } = useGlobalState();
+  const { user, posts, postsLoading } = useGlobalState();
   return (
     <div className="px-8 xl:px-60 pt-10">
       <div className="grid grid-cols-1 xl:grid-cols-2 items-center gap-5">
@@ -15,7 +16,7 @@ const ToLet = () => {
         <div className="flex-grow flex items-center justify-center xl:justify-end gap-5">
           {user ? (
             <div>
-              <Link to="/dashboard" className="btn-purple !mb-0">
+              <Link to="/dashboard/add-post" className="btn-purple !mb-0">
                 Post <span className="hidden xl:inline">a Vacancy</span>
               </Link>
             </div>
@@ -44,14 +45,15 @@ const ToLet = () => {
       </div>
 
       <div className="my-8 grid grid-cols-1 xl:grid-cols-2 gap-10">
-        <ToLetCard />
-        <ToLetCard />
-        <ToLetCard />
-        <ToLetCard />
-        <ToLetCard />
-        <ToLetCard />
-        <ToLetCard />
-        <ToLetCard />
+        {postsLoading ? (
+          <div className="col-span-2">
+            <Loader />
+          </div>
+        ) : (
+          posts?.map((post) => (
+            <ToLetCard key={posts?.indexOf(post)} post={post} />
+          ))
+        )}
       </div>
     </div>
   );

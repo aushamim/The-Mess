@@ -1,63 +1,83 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import useGlobalState from "../../Hooks/useGlobalState";
 
 const ToLetDetails = () => {
+  const { APIHost, userId } = useGlobalState();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [post, setPost] = useState({});
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetch(`${APIHost}/posts/list/${id}/`)
+      .then((res) => res.json())
+      .then((data) => setPost(data));
+  }, [APIHost, id]);
 
   return (
     <div className="px-8 xl:px-60 py-10">
       <div className="mb-10 flex">
         <h1 className="text-3xl font-medium">
-          Post By <span className="text-purple-600 font-semibold">Shamim</span>
+          Post By{" "}
+          <span className="text-purple-600 font-semibold capitalize">
+            {post?.user?.username}
+          </span>
         </h1>
-        <div className="flex-grow flex items-center justify-end gap-5">
-          <Link to={`/dashboard/edit-post/0`} className="btn-purple">
-            Edit
-          </Link>
-          <button
-            className="btn-red"
-            onClick={() =>
-              document.getElementById("confirm-post-delete").showModal()
-            }
-          >
-            Delete
-          </button>
-        </div>
+        {post?.user?.id == userId ? (
+          <div className="flex-grow flex items-center justify-end gap-5">
+            <Link
+              to={`/dashboard/edit-post/${post?.id}`}
+              className="btn-purple"
+            >
+              Edit
+            </Link>
+            <button
+              className="btn-red"
+              onClick={() =>
+                document.getElementById("confirm-post-delete").showModal()
+              }
+            >
+              Delete
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 xl:max-h-[30rem]">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 xl:gap-10 xl:max-h-[30rem]">
         <div>
           <div className="flex bg-white p-5 rounded-md shadow-md shadow-purple-100 min-h-96">
             <table>
               <tbody>
                 <tr>
                   <td>Type:</td>
-                  <td className="pl-2">Room</td>
+                  <td className="pl-2">{post?.type}</td>
                 </tr>
                 <tr>
                   <td>Count:</td>
-                  <td className="pl-2">1</td>
+                  <td className="pl-2">{post?.count}</td>
                 </tr>
                 <tr>
                   <td>Location:</td>
-                  <td className="pl-2">Mohammadpur</td>
+                  <td className="pl-2">{post?.location}</td>
                 </tr>
                 <tr>
                   <td>Address:</td>
-                  <td className="pl-2">Mohammadpur Limited Housing</td>
+                  <td className="pl-2">{post?.full_address}</td>
                 </tr>
                 <tr>
                   <td>Map:</td>
                   <td className="pl-2">
                     <a
                       className="font-medium text-purple-600"
-                      href="https://maps.app.goo.gl/Rb5wNmYD5aCMaqCo9"
+                      href={post?.map}
                       target="_blank"
                     >
                       Click to Open
@@ -66,15 +86,15 @@ const ToLetDetails = () => {
                 </tr>
                 <tr>
                   <td>Includes:</td>
-                  <td className="pl-2">Wifi, Fridge, Lift, Water Filter</td>
+                  <td className="pl-2">{post?.extra}</td>
                 </tr>
                 <tr>
                   <td>Rent:</td>
-                  <td className="pl-2">5000</td>
+                  <td className="pl-2">{post?.rent}</td>
                 </tr>
                 <tr>
                   <td>Contact:</td>
-                  <td className="pl-2">01234567890</td>
+                  <td className="pl-2">{post?.contact}</td>
                 </tr>
               </tbody>
             </table>
@@ -90,12 +110,14 @@ const ToLetDetails = () => {
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper"
             >
-              <SwiperSlide>
-                <img
-                  src="https://swiperjs.com/demos/images/nature-1.jpg"
-                  className="xl:h-24 w-full object-cover rounded-md"
-                />
-              </SwiperSlide>
+              {post?.images?.urls.map((img) => (
+                <SwiperSlide key={post?.images?.urls.indexOf(img)}>
+                  <img
+                    src={img}
+                    className="h-12 xl:h-24 w-full object-cover rounded-md"
+                  />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </div>
@@ -112,12 +134,14 @@ const ToLetDetails = () => {
             modules={[FreeMode, Navigation, Thumbs]}
             className="mySwiper2"
           >
-            <SwiperSlide>
-              <img
-                src="https://swiperjs.com/demos/images/nature-1.jpg"
-                className="xl:h-[32.5rem] w-full object-cover rounded-md"
-              />
-            </SwiperSlide>
+            {post?.images?.urls.map((img) => (
+              <SwiperSlide key={post?.images?.urls.indexOf(img)}>
+                <img
+                  src={img}
+                  className="h-72 xl:h-[32.5rem] w-full object-cover rounded-md"
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>

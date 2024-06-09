@@ -28,6 +28,7 @@ class CustomUserAdmin(UserAdmin):
                     "tier",
                     "max_groups",
                     "max_posts",
+                    "max_edits",
                 )
             },
         ),
@@ -61,6 +62,7 @@ class CustomUserAdmin(UserAdmin):
                     "tier",
                     "max_groups",
                     "max_posts",
+                    "max_edits",
                 ),
             },
         ),

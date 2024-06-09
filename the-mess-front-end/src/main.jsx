@@ -15,6 +15,7 @@ import ToLetDetails from "./Pages/ToLet/ToLetDetails";
 import { Toaster } from "sonner";
 import MyPosts from "./Pages/Dashboard/Posts/MyPosts";
 import AddPost from "./Pages/Dashboard/Posts/AddPost";
+import EditPost from "./Pages/Dashboard/Posts/EditPost";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "add-post",
         element: <AddPost />,
+      },
+      {
+        path: "edit-post/:id",
+        element: <EditPost />,
       },
     ],
   },

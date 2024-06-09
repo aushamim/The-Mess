@@ -10,3 +10,4 @@ class User(AbstractUser):
     tier = models.CharField(max_length=10, default="free")
     max_groups = models.IntegerField(default=1)
     max_posts = models.IntegerField(default=1)
+    max_edits = models.IntegerField(default=3)

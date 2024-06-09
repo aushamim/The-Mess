@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import useGlobalState from "../../../Hooks/useGlobalState";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import useGlobalState from "../../../Hooks/useGlobalState";
 
-const AddPost = () => {
+const EditPost = () => {
   const { APIHost, token, userId, user, userPosts } = useGlobalState();
+  const navigate = useNavigate();
+
   const [limitCheck, setLimitCheck] = useState(
     user?.max_posts == -1
       ? false
@@ -12,9 +14,18 @@ const AddPost = () => {
       ? false
       : true
   );
-  const navigate = useNavigate();
-
+  const [post, setPost] = useState({});
   const [urls, setUrls] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetch(`${APIHost}/posts/list/${id}/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPost(data);
+        setUrls(data?.images?.urls);
+      });
+  }, [APIHost, id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -128,7 +139,7 @@ const AddPost = () => {
   return (
     <div className="p-10">
       <div className="mb-16 text-center">
-        <h1 className="text-4xl font-semibold uppercase">Add Post</h1>
+        <h1 className="text-4xl font-semibold uppercase">Edit Post</h1>
         <span className="h-1.5 w-36 mt-1 mx-auto bg-purple-500 block rounded"></span>
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
@@ -327,4 +338,4 @@ const AddPost = () => {
   );
 };
 
-export default AddPost;
+export default EditPost;

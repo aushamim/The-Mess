@@ -22,6 +22,7 @@ const GlobalStateProvider = ({ children }) => {
     fetch(`${APIHost}/posts/list/`)
       .then((res) => res.json())
       .then((data) => {
+        data.reverse();
         setPosts(data);
         setUserPosts(data?.filter((post) => post?.user?.id == userId));
         setPostsLoading(false);
