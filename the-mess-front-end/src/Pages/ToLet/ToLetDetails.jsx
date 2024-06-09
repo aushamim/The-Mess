@@ -16,6 +16,8 @@ const ToLetDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  console.log(thumbsSwiper);
+
   useEffect(() => {
     fetch(`${APIHost}/posts/list/${id}/`)
       .then((res) => res.json())
@@ -132,7 +134,6 @@ const ToLetDetails = () => {
               onSwiper={setThumbsSwiper}
               spaceBetween={10}
               slidesPerView={4}
-              loop={true}
               watchSlidesProgress={true}
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper"
@@ -158,9 +159,9 @@ const ToLetDetails = () => {
             spaceBetween={10}
             navigation={true}
             thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
-            // thumbs={{ swiper: thumbsSwiper }}
             threshold={5}
-            modules={[Thumbs]}
+            modules={[Navigation, Thumbs]}
+            grabCursor={true}
             className="mySwiper2"
           >
             {post?.images?.urls.map((img) => (
