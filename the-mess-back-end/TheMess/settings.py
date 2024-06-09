@@ -11,11 +11,11 @@ SECRET_KEY = "django-insecure-hqpf9fy^fj^icvr+2zl(-krku3$uk)e(#$w%25g*#n(t1r1erm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "pet-adoption-platform.onrender.com"]
-# CSRF_TRUSTED_ORIGINS = ["https://pet-adoption-platform.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "the-mess.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://the-mess.onrender.com"]
 CORS_ORIGIN_WHITELIST = (
     "http://localhost:5173",
-    "https://clinquant-churros.netlify.app",
+    "https://the-mess.netlify.app/",
 )
 
 
