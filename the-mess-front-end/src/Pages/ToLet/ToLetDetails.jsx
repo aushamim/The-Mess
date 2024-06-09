@@ -133,7 +133,7 @@ const ToLetDetails = () => {
             <Swiper
               onSwiper={setThumbsSwiper}
               spaceBetween={10}
-              slidesPerView={3}
+              slidesPerView={4}
               watchSlidesProgress={true}
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper"
@@ -158,7 +158,8 @@ const ToLetDetails = () => {
             }}
             spaceBetween={10}
             navigation={true}
-            thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+            // thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+            thumbs={{ swiper: thumbsSwiper }}
             threshold={5}
             modules={[Navigation, Thumbs]}
             grabCursor={true}
