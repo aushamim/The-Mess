@@ -132,7 +132,7 @@ const ToLetDetails = () => {
               onSwiper={setThumbsSwiper}
               spaceBetween={10}
               slidesPerView={4}
-              freeMode={true}
+              loop={true}
               watchSlidesProgress={true}
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper"
@@ -158,8 +158,9 @@ const ToLetDetails = () => {
             spaceBetween={10}
             navigation={true}
             thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+            // thumbs={{ swiper: thumbsSwiper }}
             threshold={5}
-            modules={[FreeMode, Navigation, Thumbs]}
+            modules={[Thumbs]}
             className="mySwiper2"
           >
             {post?.images?.urls.map((img) => (
