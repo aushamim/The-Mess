@@ -6,13 +6,7 @@ import { useNavigate } from "react-router-dom";
 const AddPost = () => {
   const { APIHost, token, userId, user, userPosts, loadPosts } =
     useGlobalState();
-  const [limitCheck, setLimitCheck] = useState(
-    user?.max_posts == -1
-      ? false
-      : user?.max_posts > userPosts?.length
-      ? false
-      : true
-  );
+  const [limitCheck, setLimitCheck] = useState(false);
   const navigate = useNavigate();
 
   const [urls, setUrls] = useState([]);
@@ -118,6 +112,18 @@ const AddPost = () => {
     });
   };
 
+  useEffect(() => {
+    if (user) {
+      setLimitCheck(
+        user?.max_posts == -1
+          ? false
+          : user?.max_posts > userPosts?.length
+          ? false
+          : true
+      );
+    }
+  }, [user, userPosts]);
+
   const limitWarning = () => {
     toast.error("Post limit reached. Upgrade to add more.");
   };
@@ -135,7 +141,7 @@ const AddPost = () => {
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
         <form
-          className="col-span-2 grid grid-cols-2 gap-x-10 gap-y-5"
+          className="xl:col-span-2 grid grid-cols-1 xl:grid-cols-2 gap-x-10 gap-y-5"
           onSubmit={handleSubmit}
         >
           <label className="form-control w-full">

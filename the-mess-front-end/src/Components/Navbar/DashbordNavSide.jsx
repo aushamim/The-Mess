@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const DashbordNavSide = () => {
   return (
-    <div className="bg-red-200">
+    <div>
       <div className="drawer xl:drawer-open">
         <input
           id="dashboard-drawer"
@@ -22,6 +22,14 @@ const DashbordNavSide = () => {
                 className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
               >
                 Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/dashboard/profile"
+                className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+              >
+                Profile
               </Link>
             </li>
             <li></li>

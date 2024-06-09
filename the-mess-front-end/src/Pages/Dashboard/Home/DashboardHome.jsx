@@ -1,78 +1,20 @@
-import { toast } from "sonner";
+import Loader from "../../../Components/Loader/Loader";
+import useGlobalState from "../../../Hooks/useGlobalState";
 
 const DashboardHome = () => {
+  const { user } = useGlobalState();
   return (
-    <div>
-      <div>
-        <button
-          className="btn-purple"
-          onClick={() => {
-            toast.success("Hello");
-          }}
-        >
-          kajsdna
-        </button>
-      </div>
-      <div>
-        <button
-          className="btn-purple"
-          onClick={() => {
-            toast.success("Hello");
-          }}
-        >
-          kajsdna
-        </button>
-      </div>
-      <div>
-        <button
-          className="btn-purple"
-          onClick={() => {
-            toast.success("Hello");
-          }}
-        >
-          kajsdna
-        </button>
-      </div>
-      <div>
-        <button
-          className="btn-purple"
-          onClick={() => {
-            toast.success("Hello");
-          }}
-        >
-          kajsdna
-        </button>
-      </div>
-      <div>
-        <button
-          className="btn-purple"
-          onClick={() => {
-            toast.success("Hello");
-          }}
-        >
-          kajsdna
-        </button>
-      </div>
-      <div>
-        <button
-          className="btn-purple"
-          onClick={() => {
-            toast.success("Hello");
-          }}
-        >
-          kajsdna
-        </button>
-      </div>
-      <div>
-        <button
-          className="btn-purple"
-          onClick={() => {
-            toast.success("Hello");
-          }}
-        >
-          kajsdna
-        </button>
-      </div>
+    <div className="p-8">
+      {!user ? (
+        <Loader />
+      ) : (
+        <h1 className="text-3xl font-medium">
+          Welcome Back,{" "}
+          <span className="capitalize font-semibold text-purple-600">
+            {user?.first_name} {user?.last_name}
+          </span>
+        </h1>
+      )}
     </div>
   );
 };

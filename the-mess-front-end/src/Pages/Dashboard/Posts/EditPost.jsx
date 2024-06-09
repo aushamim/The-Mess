@@ -155,7 +155,7 @@ const EditPost = () => {
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
         <form
-          className="col-span-2 grid grid-cols-2 gap-x-10 gap-y-5"
+          className="col-span-1 xl:col-span-2 grid grid-cols-1 xl:grid-cols-2 gap-x-10 gap-y-5"
           onSubmit={handleSubmit}
         >
           <label className="form-control w-full">
