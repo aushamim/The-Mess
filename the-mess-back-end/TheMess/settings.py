@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "UserManagement",
+    "VacancyPosts",
 ]
 
 AUTH_USER_MODEL = "UserManagement.User"
@@ -94,9 +95,6 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
-    ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ],

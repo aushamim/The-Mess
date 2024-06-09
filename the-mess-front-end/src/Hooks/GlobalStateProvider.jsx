@@ -11,7 +11,27 @@ const GlobalStateProvider = ({ children }) => {
   const [userId, setUserId] = useState(
     parseInt(localStorage.getItem("user_id")) || null
   );
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
+
+  const [posts, setPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
+  const [postsLoading, setPostsLoading] = useState(true);
+  const loadPosts = () => {
+    setPostsLoading(true);
+    fetch(`${APIHost}/posts/list/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data);
+        setUserPosts(data?.filter((post) => post?.user?.id == userId));
+        setPostsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    loadPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (userId) {
@@ -26,7 +46,6 @@ const GlobalStateProvider = ({ children }) => {
   }, [APIHost, userId]);
 
   const logout = (navigate) => {
-    const token = localStorage.getItem("token");
     if (!token) {
       toast.error("User not logged in.");
       return;
@@ -67,7 +86,18 @@ const GlobalStateProvider = ({ children }) => {
 
   return (
     <GlobalContext.Provider
-      value={{ APIHost, logout, userId, setUserId, user }}
+      value={{
+        APIHost,
+        token,
+        setToken,
+        logout,
+        userId,
+        setUserId,
+        user,
+        posts,
+        userPosts,
+        postsLoading,
+      }}
     >
       {children}
     </GlobalContext.Provider>

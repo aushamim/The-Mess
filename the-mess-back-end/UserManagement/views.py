@@ -3,6 +3,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView
 
 from UserManagement.models import User
@@ -54,6 +55,7 @@ class UserLoginViewset(viewsets.ModelViewSet):
 
 class UserLogoutView(APIView):
     permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
 
     def post(self, request):
         request.user.auth_token.delete()
