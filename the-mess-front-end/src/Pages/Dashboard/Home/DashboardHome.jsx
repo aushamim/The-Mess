@@ -1,8 +1,19 @@
+import { useNavigate } from "react-router-dom";
 import Loader from "../../../Components/Loader/Loader";
 import useGlobalState from "../../../Hooks/useGlobalState";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const DashboardHome = () => {
   const { user } = useGlobalState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      toast.warning("Please login to continue.");
+      navigate("/login");
+    }
+  }, [user, navigate]);
   return (
     <div className="p-8">
       {!user ? (
