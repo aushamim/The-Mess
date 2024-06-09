@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import MainNavbar from "../Navbar/MainNavbar";
-import Footer from "../Footer/Footer";
+import DashboardNavTop from "../Navbar/DashboardNavTop";
+import DashbordNavSide from "../Navbar/DashbordNavSide";
+import DashboardParticles from "../Particles/DashboardParticles";
 
-const MainLayout = () => {
+const DashboardLayout = () => {
   const [scrollToTopVisible, setScrollToTopVisible] = useState(false);
   useEffect(() => {
     function handleScroll() {
@@ -22,14 +23,29 @@ const MainLayout = () => {
   return (
     <div>
       <div>
-        <MainNavbar scrolled={scrollToTopVisible}></MainNavbar>
+        <DashboardNavTop scrolled={scrollToTopVisible} />
 
-        {/* All Pages */}
-        <div className="min-h-[50vh] md:min-h-[80vh] mt-20">
-          <Outlet></Outlet>
+        <div>
+          {/* Sidebar */}
+          <div
+            className={`w-52 duration-300 fixed left-0 ${
+              scrollToTopVisible ? "top-12" : "top-16"
+            }`}
+          >
+            <DashbordNavSide />
+          </div>
+
+          {/* All Pages */}
+          <div>
+            <div className="flex-grow xl:ml-52 pt-16 z-0">
+              <Outlet></Outlet>
+            </div>
+
+            <div className="absolute top-16 left-0 xl:left-52 right-0 bottom-0 -z-10">
+              <DashboardParticles />
+            </div>
+          </div>
         </div>
-
-        <Footer></Footer>
       </div>
 
       <button
@@ -64,4 +80,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default DashboardLayout;

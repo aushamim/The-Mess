@@ -60,7 +60,7 @@ const MainNavbar = ({ scrolled }) => {
           Contact Us
         </HashLink>
         <Link
-          to="/"
+          to="/to-let"
           className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
         >
           To-Let
@@ -68,7 +68,7 @@ const MainNavbar = ({ scrolled }) => {
         {user ? (
           <>
             <Link
-              to="/login"
+              to="/dashboard"
               className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
             >
               Dashboard

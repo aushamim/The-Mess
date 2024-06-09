@@ -98,7 +98,7 @@ const Footer = () => {
               To-Let
             </Link>
             <Link
-              to="/"
+              to="/dashboard"
               className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
             >
               Dashboard

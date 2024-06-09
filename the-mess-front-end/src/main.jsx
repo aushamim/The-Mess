@@ -8,6 +8,13 @@ import FourOFour from "./Components/FourOFour/FourOFour";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/User/Login";
 import Register from "./Pages/User/Register";
+import DashboardLayout from "./Components/Layout/DashboardLayout";
+import DashboardHome from "./Pages/Dashboard/Home/DashboardHome";
+import ToLet from "./Pages/ToLet/ToLet";
+import ToLetDetails from "./Pages/ToLet/ToLetDetails";
+import { Toaster } from "sonner";
+import MyPosts from "./Pages/Dashboard/Posts/MyPosts";
+import AddPost from "./Pages/Dashboard/Posts/AddPost";
 
 const router = createBrowserRouter([
   {
@@ -19,29 +26,55 @@ const router = createBrowserRouter([
         element: <FourOFour />,
       },
       {
-        path: "/",
+        index: true,
         element: <Home />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/register",
+        path: "register",
         element: <Register />,
+      },
+      {
+        path: "to-let",
+        element: <ToLet />,
+      },
+      {
+        path: "to-let/:id",
+        element: <ToLetDetails />,
       },
     ],
   },
   {
     path: "/dashboard",
-    element: <div>Dashboard</div>,
-    children: [],
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "*",
+        element: <FourOFour />,
+      },
+      {
+        index: true,
+        element: <DashboardHome />,
+      },
+      {
+        path: "my-posts",
+        element: <MyPosts />,
+      },
+      {
+        path: "add-post",
+        element: <AddPost />,
+      },
+    ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <GlobalStateProvider>
+      <Toaster richColors position="top-center" />
       <RouterProvider router={router} />
     </GlobalStateProvider>
   </React.StrictMode>
