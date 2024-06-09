@@ -1,6 +1,14 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 
+const shortenDetails = (text) => {
+  if (text.length <= 23) {
+    return text;
+  } else {
+    return text.slice(0, 23) + " ...";
+  }
+};
+
 const ToLetCard = ({ post }) => {
   return (
     <Link
@@ -27,11 +35,11 @@ const ToLetCard = ({ post }) => {
             </tr>
             <tr>
               <td>Address:</td>
-              <td className="pl-2">{post?.full_address}</td>
+              <td className="pl-2">{shortenDetails(post?.full_address)}</td>
             </tr>
             <tr>
               <td>Includes:</td>
-              <td className="pl-2">{post?.extra}</td>
+              <td className="pl-2">{shortenDetails(post?.extra)}</td>
             </tr>
             <tr>
               <td>Rent:</td>

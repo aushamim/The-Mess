@@ -86,13 +86,13 @@ const Footer = () => {
           </div>
           <div className="flex flex-col items-end mt-5">
             <Link
-              to="/"
+              to="/login"
               className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
             >
               Login
             </Link>
             <Link
-              to="/"
+              to="/to-let"
               className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
             >
               To-Let

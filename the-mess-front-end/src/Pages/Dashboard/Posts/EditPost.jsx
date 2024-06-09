@@ -88,7 +88,7 @@ const EditPost = () => {
             throw new Error(data.username);
           } else {
             loadPosts();
-            navigate("/dashboard/my-posts", { replace: true });
+            navigate("/to-let", { replace: true });
           }
         })
         .catch((error) => {
@@ -173,6 +173,7 @@ const EditPost = () => {
               </option>
               <option>Room</option>
               <option>Seat</option>
+              <option>Flat</option>
             </select>
           </label>
 

@@ -17,6 +17,7 @@ const GlobalStateProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [userPosts, setUserPosts] = useState([]);
   const [postsLoading, setPostsLoading] = useState(true);
+
   const loadPosts = () => {
     setPostsLoading(true);
     fetch(`${APIHost}/posts/list/`)

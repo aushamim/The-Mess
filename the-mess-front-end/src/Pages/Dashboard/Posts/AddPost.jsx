@@ -159,6 +159,7 @@ const AddPost = () => {
               </option>
               <option>Room</option>
               <option>Seat</option>
+              <option>Flat</option>
             </select>
           </label>
 

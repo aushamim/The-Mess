@@ -32,7 +32,6 @@ const DashbordNavSide = () => {
                 Profile
               </Link>
             </li>
-            <li></li>
             <li>
               <Link
                 to="/dashboard/my-posts"
@@ -47,6 +46,48 @@ const DashbordNavSide = () => {
                 className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
               >
                 Add Post
+              </Link>
+            </li>
+            <li></li>
+            <li>
+              <Link
+                to="/dashboard/groups"
+                className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+              >
+                Groups
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/dashboard/new-group"
+                className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+              >
+                New Group
+              </Link>
+            </li>
+            <li></li>
+            <li>
+              <Link
+                to="/dashboard/meal-tracker"
+                className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+              >
+                Meal Tracker
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/dashboard/grocery-tracker"
+                className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+              >
+                Grocery Tracker
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/dashboard/Bills-tracker"
+                className="font-semibold text-gray-500 hover:text-purple-500 duration-300"
+              >
+                Bills Tracker
               </Link>
             </li>
           </ul>
