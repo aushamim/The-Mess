@@ -16,8 +16,6 @@ const ToLetDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  console.log(thumbsSwiper);
-
   useEffect(() => {
     fetch(`${APIHost}/posts/list/${id}/`)
       .then((res) => res.json())
