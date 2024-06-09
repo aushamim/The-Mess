@@ -5,14 +5,15 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import useGlobalState from "../../Hooks/useGlobalState";
 
 const ToLetDetails = () => {
-  const { APIHost, userId } = useGlobalState();
+  const { APIHost, userId, token, loadPosts } = useGlobalState();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [post, setPost] = useState({});
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,6 +21,32 @@ const ToLetDetails = () => {
       .then((res) => res.json())
       .then((data) => setPost(data));
   }, [APIHost, id]);
+
+  const handleDelete = () => {
+    const promise = () => {
+      return fetch(`${APIHost}/posts/edit/${id}/`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+        .then(() => {
+          loadPosts();
+          navigate("/to-let", { replace: true });
+        })
+        .catch((error) => {
+          throw error;
+        });
+    };
+
+    toast.promise(promise, {
+      loading: "Removing post. Please wait.",
+      success: "Post removed successfully",
+      error: (error) => {
+        return error;
+      },
+    });
+  };
 
   return (
     <div className="px-8 xl:px-60 py-10">
@@ -153,12 +180,7 @@ const ToLetDetails = () => {
             <p className="py-4">Do you really want to delete this post?</p>
             <div className="modal-action">
               <form method="dialog" className="flex gap-3">
-                <button
-                  className="btn-red"
-                  onClick={() => {
-                    toast.success("DDDDDDDDDDDDD");
-                  }}
-                >
+                <button className="btn-red" onClick={handleDelete}>
                   Delete
                 </button>
                 <button className="btn-green">Cancel</button>

@@ -4,18 +4,13 @@ import { toast } from "sonner";
 import useGlobalState from "../../../Hooks/useGlobalState";
 
 const EditPost = () => {
-  const { APIHost, token, userId, user, userPosts } = useGlobalState();
+  const { APIHost, token, userId, user, loadPosts } = useGlobalState();
   const navigate = useNavigate();
 
-  const [limitCheck, setLimitCheck] = useState(
-    user?.max_posts == -1
-      ? false
-      : user?.max_posts > userPosts?.length
-      ? false
-      : true
-  );
+  const [limitCheck, setLimitCheck] = useState(false);
   const [post, setPost] = useState({});
   const [urls, setUrls] = useState([]);
+  const [remainingEdits, setRemainingEdits] = useState(10);
   const { id } = useParams();
 
   useEffect(() => {
@@ -24,8 +19,12 @@ const EditPost = () => {
       .then((data) => {
         setPost(data);
         setUrls(data?.images?.urls);
+        if (user) {
+          setLimitCheck(user?.max_edits > data?.edits ? false : true);
+          setRemainingEdits(user?.max_edits - data?.edits - 1);
+        }
       });
-  }, [APIHost, id]);
+  }, [APIHost, id, user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,8 +50,8 @@ const EditPost = () => {
     }
 
     const promise = () => {
-      return fetch(`${APIHost}/posts/edit/add/`, {
-        method: "POST",
+      return fetch(`${APIHost}/posts/edit/${id}/`, {
+        method: "PUT",
         headers: {
           Authorization: `Token ${token}`,
           "content-type": "application/json",
@@ -68,6 +67,7 @@ const EditPost = () => {
           rent,
           contact,
           images,
+          edits: post?.edits + 1,
         }),
       })
         .then((res) => res.json())
@@ -77,6 +77,7 @@ const EditPost = () => {
           } else if (data.username) {
             throw new Error(data.username);
           } else {
+            loadPosts();
             navigate("/dashboard/my-posts", { replace: true });
           }
         })
@@ -86,8 +87,8 @@ const EditPost = () => {
     };
 
     toast.promise(promise, {
-      loading: "Creating new post. Please wait.",
-      success: "Post created successfully",
+      loading: "Editing post. Please wait.",
+      success: `Post edited successfully. Remaining edits: ${remainingEdits}`,
       error: (error) => {
         return error;
       },
@@ -128,7 +129,7 @@ const EditPost = () => {
   };
 
   const limitWarning = () => {
-    toast.error("Post limit reached. Upgrade to add more.");
+    toast.error("Edit limit reached. Upgrade to add more.");
   };
   useEffect(() => {
     if (limitCheck) {
@@ -154,7 +155,7 @@ const EditPost = () => {
             <select
               id="type"
               className="select select-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
-              defaultValue={"Default"}
+              defaultValue={post?.type}
               required
             >
               <option disabled value={"Default"}>
@@ -174,6 +175,7 @@ const EditPost = () => {
               type="number"
               placeholder="How many seat or room?"
               className="input input-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
+              defaultValue={post?.count}
               required
             />
           </label>
@@ -187,6 +189,7 @@ const EditPost = () => {
               type="text"
               placeholder="Where it is?"
               className="input input-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
+              defaultValue={post?.location}
               required
             />
           </label>
@@ -200,6 +203,7 @@ const EditPost = () => {
               type="text"
               placeholder="House No, Road No, Location"
               className="input input-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
+              defaultValue={post?.full_address}
               required
             />
           </label>
@@ -211,8 +215,9 @@ const EditPost = () => {
             <input
               id="map"
               type="text"
-              placeholder="Google Map Location"
+              placeholder="Google Map URL"
               className="input input-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
+              defaultValue={post?.map}
               required
             />
           </label>
@@ -226,6 +231,7 @@ const EditPost = () => {
               type="text"
               placeholder="Wifi, Fridge, Lift, Water Filter, etc"
               className="input input-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
+              defaultValue={post?.extra}
               required
             />
           </label>
@@ -239,6 +245,7 @@ const EditPost = () => {
               type="number"
               placeholder="How much is the rent?"
               className="input input-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
+              defaultValue={post?.rent}
               required
             />
           </label>
@@ -252,6 +259,7 @@ const EditPost = () => {
               type="text"
               placeholder="Phone No / Email address"
               className="input input-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
+              defaultValue={post?.contact}
               required
             />
           </label>
@@ -331,7 +339,7 @@ const EditPost = () => {
             }
           }}
         >
-          Post
+          Save
         </button>
       </div>
     </div>

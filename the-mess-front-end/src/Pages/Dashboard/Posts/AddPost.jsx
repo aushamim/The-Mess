@@ -4,7 +4,8 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 const AddPost = () => {
-  const { APIHost, token, userId, user, userPosts } = useGlobalState();
+  const { APIHost, token, userId, user, userPosts, loadPosts } =
+    useGlobalState();
   const [limitCheck, setLimitCheck] = useState(
     user?.max_posts == -1
       ? false
@@ -40,7 +41,7 @@ const AddPost = () => {
     }
 
     const promise = () => {
-      return fetch(`${APIHost}/posts/edit/add/`, {
+      return fetch(`${APIHost}/posts/edit/`, {
         method: "POST",
         headers: {
           Authorization: `Token ${token}`,
@@ -66,6 +67,7 @@ const AddPost = () => {
           } else if (data.username) {
             throw new Error(data.username);
           } else {
+            loadPosts();
             navigate("/dashboard/my-posts", { replace: true });
           }
         })
@@ -200,7 +202,7 @@ const AddPost = () => {
             <input
               id="map"
               type="text"
-              placeholder="Google Map Location"
+              placeholder="Google Map URL"
               className="input input-bordered w-full rounded-md border-purple-200 shadow-2xl shadow-purple-200 focus:outline-0 focus:shadow-2xl focus:shadow-purple-200 focus:border-purple-400 duration-300"
               required
             />

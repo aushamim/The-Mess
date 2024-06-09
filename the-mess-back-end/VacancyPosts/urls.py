@@ -6,7 +6,7 @@ from VacancyPosts.views import PostsEditViewset, PostsViewset
 
 router = DefaultRouter()
 router.register("list", PostsViewset, basename="all-posts")
-router.register("edit/add", PostsEditViewset, basename="add-post")
+router.register("edit", PostsEditViewset, basename="add-post")
 urlpatterns = [
     path("", include(router.urls)),
 ]

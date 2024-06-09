@@ -18,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
             "tier",
             "max_groups",
             "max_posts",
+            "max_edits",
         ]
 
 
