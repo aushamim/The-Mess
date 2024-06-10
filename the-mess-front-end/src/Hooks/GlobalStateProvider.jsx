@@ -5,8 +5,10 @@ import { toast } from "sonner";
 export const GlobalContext = createContext(null);
 
 const GlobalStateProvider = ({ children }) => {
-  const APIHost = "https://the-mess.onrender.com";
-  // const APIHost = "http://127.0.0.1:8000";
+  const devMode = false;
+  const APIHost = devMode
+    ? "http://127.0.0.1:8000"
+    : "https://the-mess.onrender.com";
 
   const [userId, setUserId] = useState(
     parseInt(localStorage.getItem("user_id")) || null
@@ -17,6 +19,17 @@ const GlobalStateProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [userPosts, setUserPosts] = useState([]);
   const [postsLoading, setPostsLoading] = useState(true);
+
+  const loadUser = () => {
+    fetch(`${APIHost}/user/list/${userId}/`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.username) {
+          setUser(data);
+          setAdmin(data?.role == "admin");
+        }
+      });
+  };
 
   const loadPosts = () => {
     setPostsLoading(true);
@@ -31,22 +44,12 @@ const GlobalStateProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (userId) {
+      loadUser();
+    }
     loadPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (userId) {
-      fetch(`${APIHost}/user/list/${userId}/`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data?.username) {
-            setUser(data);
-            setAdmin(data?.role == "admin");
-          }
-        });
-    }
-  }, [APIHost, userId]);
+  }, [userId]);
 
   const logout = (navigate) => {
     if (!token) {
@@ -69,7 +72,8 @@ const GlobalStateProvider = ({ children }) => {
           } else {
             localStorage.removeItem("token");
             localStorage.removeItem("user_id");
-            setUser(localStorage.getItem("user_id") || null);
+            setUser(null);
+            setUserId(null);
             navigate("/");
           }
         })
@@ -90,6 +94,7 @@ const GlobalStateProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
+        devMode,
         APIHost,
         token,
         setToken,
@@ -98,6 +103,7 @@ const GlobalStateProvider = ({ children }) => {
         setUserId,
         admin,
         user,
+        loadUser,
         posts,
         userPosts,
         postsLoading,

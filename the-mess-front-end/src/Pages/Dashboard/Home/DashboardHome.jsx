@@ -5,15 +5,15 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 
 const DashboardHome = () => {
-  const { user } = useGlobalState();
+  const { userId, user } = useGlobalState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    if (!userId) {
       toast.warning("Please login to continue.");
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [navigate, userId]);
   return (
     <div className="p-8">
       {!user ? (

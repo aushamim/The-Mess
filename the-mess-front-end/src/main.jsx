@@ -16,6 +16,7 @@ import { Toaster } from "sonner";
 import MyPosts from "./Pages/Dashboard/Posts/MyPosts";
 import AddPost from "./Pages/Dashboard/Posts/AddPost";
 import EditPost from "./Pages/Dashboard/Posts/EditPost";
+import Profile from "./Pages/Dashboard/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <DashboardHome />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
       {
         path: "my-posts",

@@ -4,11 +4,12 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 
 const Login = () => {
-  const { APIHost, setUserId, user } = useGlobalState();
+  const { APIHost, setUserId, userId, user } = useGlobalState();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const username = e.target.elements["username"].value;
     const password = e.target.elements["password"].value;
 
@@ -30,7 +31,7 @@ const Login = () => {
           } else {
             localStorage.setItem("token", data.token);
             localStorage.setItem("user_id", data.user_id);
-            setUserId(localStorage.getItem("user_id") || null);
+            setUserId(data.user_id);
             navigate("/dashboard", { replace: true });
           }
         })
@@ -49,11 +50,11 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (userId) {
       toast.warning("You are already logged in.");
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, userId]);
 
   return (
     <div className="pt-10 xl:pt-0 grid grid-cols-1 xl:grid-cols-2 gap-10 items-center">

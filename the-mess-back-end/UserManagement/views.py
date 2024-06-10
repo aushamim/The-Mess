@@ -8,10 +8,13 @@ from rest_framework.views import APIView
 
 from UserManagement.models import User
 from UserManagement.serializers import (
+    ChangePasswordSerializer,
     LoginSerilizer,
     RegistrationSerilizer,
+    UserBasicEditSerializer,
     UserSerializer,
 )
+from VacancyPosts import serializers
 
 
 # Create your views here.
@@ -61,3 +64,39 @@ class UserLogoutView(APIView):
         request.user.auth_token.delete()
         logout(request)
         return Response({"success": "Logged Out"})
+
+
+class UserBasicEditViewset(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+
+    queryset = User.objects.all()
+    serializer_class = UserBasicEditSerializer
+
+
+class UserChangePassword(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def post(self, request):
+        serializer = ChangePasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+
+            if not user.check_password(serializer.data.get("old_password")):
+                return Response({"error": "Wrong password"})
+
+            if serializer.data.get("old_password") == serializer.data.get(
+                "new_password"
+            ):
+                return Response({"error": "New password is the same as old password"})
+
+            if serializer.data.get("new_password") != serializer.data.get(
+                "confirm_password"
+            ):
+                return Response({"error": "Password didn't match"})
+
+            user.set_password(serializer.data.get("new_password"))
+            user.save()
+
+            return Response({"success": "Password changed successfully."})
+        return Response(serializer.errors)

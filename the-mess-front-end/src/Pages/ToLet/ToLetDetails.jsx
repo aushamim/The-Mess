@@ -10,7 +10,8 @@ import { toast } from "sonner";
 import useGlobalState from "../../Hooks/useGlobalState";
 
 const ToLetDetails = () => {
-  const { APIHost, userId, token, loadPosts, admin } = useGlobalState();
+  const { devMode, APIHost, userId, token, loadPosts, admin } =
+    useGlobalState();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [post, setPost] = useState({});
   const navigate = useNavigate();
@@ -157,7 +158,14 @@ const ToLetDetails = () => {
             spaceBetween={10}
             navigation={true}
             // thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
-            thumbs={{ swiper: thumbsSwiper }}
+            // thumbs={{ swiper: thumbsSwiper }}
+            thumbs={
+              devMode
+                ? thumbsSwiper
+                  ? { swiper: thumbsSwiper }
+                  : undefined
+                : { swiper: thumbsSwiper }
+            }
             threshold={5}
             modules={[Navigation, Thumbs]}
             grabCursor={true}

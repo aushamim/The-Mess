@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
 
 from UserManagement.models import User
 
@@ -19,6 +20,19 @@ class UserSerializer(serializers.ModelSerializer):
             "max_groups",
             "max_posts",
             "max_edits",
+        ]
+
+
+class UserBasicEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "phone_no",
+            "address",
         ]
 
 
@@ -73,3 +87,18 @@ class RegistrationSerilizer(serializers.ModelSerializer):
 class LoginSerilizer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(required=True)
+
+    def save(self, **kwargs):
+        password1 = self.validated_data["new_password"]
+        password2 = self.validated_data["confirm_password"]
+
+        if password1 != password2:
+            raise serializers.ValidationError({"error": "Password didn't match"})
+
+        return super().save(**kwargs)
