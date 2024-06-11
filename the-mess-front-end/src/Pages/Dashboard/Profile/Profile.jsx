@@ -114,7 +114,7 @@ const Profile = () => {
         </div>
 
         <form
-          className="grid grid-cols-2 gap-x-5 gap-y-2"
+          className="grid grid-cols-1 xl:grid-cols-2 gap-x-5 gap-y-2"
           onSubmit={handleEditProfile}
         >
           <label className="form-control w-full">
@@ -255,7 +255,8 @@ const Profile = () => {
           </button>
         </div>
       </div>
-      <div>
+
+      <div className="mb-16 xl:mb-0">
         <div className="mb-8">
           <h1 className="text-3xl font-semibold uppercase text-center xl:text-left">
             Change Password
@@ -263,7 +264,7 @@ const Profile = () => {
           <span className="h-1.5 w-36 mt-1 mx-auto xl:mx-0 bg-purple-500 block rounded"></span>
         </div>
 
-        <form className="pr-32" onSubmit={handlePasswordChange}>
+        <form className="xl:pr-32" onSubmit={handlePasswordChange}>
           <label className="form-control w-full mb-2">
             <div className="label">
               <span className="label-text">Old Password</span>
