@@ -308,7 +308,7 @@ const EditPost = () => {
               onChange={handleFileUpload}
             />
           </div>
-          <div className="mt-5 bg-white p-3 rounded-md grid grid-cols-2 gap-5 justify-center">
+          <div className="mt-5 bg-white p-3 rounded-md grid grid-cols-2 gap-5 justify-center relative -z-[1]">
             {urls?.length === 0 ? (
               <p className="text-center col-span-2">No Images</p>
             ) : (
